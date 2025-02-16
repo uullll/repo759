@@ -30,14 +30,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    int n = atoi(argv[1]);  // 读取图像大小
-    int m = atoi(argv[2]);  // 读取卷积核大小
+    int n = atoi(argv[1]);  
+    int m = atoi(argv[2]);  
     if (n <= 0 || m <= 0 || m % 2 == 0) {
         cerr << "Error: n and m must be positive integers, and m must be odd." << endl;
         return 1;
     }
 
-    srand(time(nullptr));  // 随机种子
+    srand(time(nullptr));  // random seed
     float* image  = new float[n*n];
 	float* mask   = new float[m*m];
 	float* output = new float[n*n];
@@ -45,13 +45,13 @@ int main(int argc, char *argv[]) {
     generateRandomMatrix(image, n * n, -10.0f, 10.0f);
     generateRandomMatrix(mask, m * m, -1.0f, 1.0f);
 
-    // 计时
+    // time
     auto start = high_resolution_clock::now();
     convolve(image, output,n ,mask , m);
     auto end = high_resolution_clock::now();
     double elapsedTime = duration<double, milli>(end - start).count();
 
-    // 输出时间、卷积结果的第一个和最后一个值
+    // output
     cout << elapsedTime << endl;
     cout << output[0] << endl;
     cout << output[n * n - 1] << endl;
